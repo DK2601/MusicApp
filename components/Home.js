@@ -14,20 +14,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import Artist from './Artist';
 import RecentlyPlayed from './RecentlyPlayed';
+import LikedSong from './LikedSong';
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
   const [userProfile, setUserProfile] = useState();
   const [recentlyPlayed, setRecentlyPlayed] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
+
+  const navigation = useNavigation();
   ////// 
   const greetingMessage = () => {
     const currentTime = new Date().getHours();
     if (currentTime < 12) {
-      return "Chào Buổi Sáng";
-    } else if (currentTime < 16) {
-      return "Chào Buổi Chiều";
+      return "Chào buổi sáng!";
+    } else if (currentTime < 18) {
+      return "Chào buổi chiều!";
     } else {
-      return "Chào Buổi Tối";
+      return "Chào buổi tối!";
     }
   };
   const message = greetingMessage();
@@ -35,6 +39,9 @@ const Home = () => {
   ////////////////////////////////////
   const getProfile = async () => {
     const accessToken = await AsyncStorage.getItem("token");
+    if(accessToken=null){
+      navigation.navigate('Login')
+    }
     try {
       const response = await fetch("https://api.spotify.com/v1/me", {
         headers: {
@@ -112,7 +119,6 @@ const Home = () => {
 
     getTopItems();
   }, []);
-  console.log(recentlyPlayed);
   return (
     <LinearGradient colors={['#9896F0', '#FBC8D5']} style={{ flex: 1 }}>
       <ScrollView style={{ marginTop: 50 }}>
@@ -120,25 +126,28 @@ const Home = () => {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Image
               style={{
-                width: 40,
-                height: 40,
-                borderRadius: 20,
+                width: 70,
+                height: 70,
+                borderRadius: 40,
                 resizeMode: "cover",
+                marginLeft: 10,
               }}
               source={{ uri: userProfile?.images[0].url }}
             />
             <Text
               style={{
-                marginLeft: 10,
-                fontSize: 20,
+                marginLeft: 5,
+                fontSize: 25,
                 fontWeight: "bold",
                 color: "white",
+                fontFamily: 'georgia',
               }}
             > {message}
             </Text>
           </View>
           <View style={{ height: 10 }}></View>
           <Pressable
+            onPress={() => navigation.navigate('LikedSong')}
             style={{
               marginBottom: 10,
               gap: 10,
@@ -146,10 +155,11 @@ const Home = () => {
               marginHorizontal: 10,
               marginVertical: 8,
               flexDirection: 'row',
-              backgroundColor: '#282828',
-              borderRadius: 4,
+              backgroundColor: '#4d4d4d',
               elevation: 5,
-              alignItems: 'center'
+              alignItems: 'center',
+              borderRadius: 15,
+              width: 390,
             }}>
             <LinearGradient colors={['#FF668A', '#FF003C']}>
               <Pressable
@@ -158,24 +168,37 @@ const Home = () => {
                   height: 55,
                   justifyContent: 'center',
                   alignItems: 'center',
+                  backgroundColor: '#ff80aa',
                 }}
               >
-                <Ionicons name='heart' size={34} color='white' />
+                <Ionicons name='heart' size={34} color='white'/>
               </Pressable>
             </LinearGradient>
-            <Text style={{ color: 'white', fontSize: 15, fontWeight: 'bold' }}>Liked Songs</Text>
+            <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>Liked Songs</Text>
           </Pressable>
         </View>
-        <FlatList data={recentlyPlayed} renderItem={renderItems} numColumns={2} columnWrapperStyle={{ justifyContent: 'space-between' }} />
-        <Text style={{color: 'white', fontSize: 19,fontWeight:'bold', marginHorizontal: 10, marginTop: 10}}>Top Artists</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <FlatList data={recentlyPlayed} renderItem={renderItems} numColumns={2} columnWrapperStyle={{ justifyContent: 'space-between'}} />
+        <Text style={{
+          color: 'white',
+          fontSize: 25,
+          fontWeight:'bold', 
+          marginHorizontal: 10, 
+          marginTop: 16,
+          }}>Top Artists</Text>        
+          
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {topArtists.map((item, index) => (
             <Artist item={item} key={index} />
           ))}
         </ScrollView>
-        <View style={{height: 20}} />
-        <Text style={{color: 'white', fontSize: 19,fontWeight:'bold', marginHorizontal: 10, marginTop: 10}}>Recently Played</Text>
-        <FlatList data={recentlyPlayed} horizontal showsHorizontalScrollIndicator={false} renderItem={({item, index}) => (<RecentlyPlayed item={item} key={index}/>)} />
+        <Text style={{
+          color: 'white', 
+          fontSize: 25,
+          fontWeight:'bold', 
+          marginHorizontal: 10, 
+          marginTop: 20,
+          }}>Recently Played</Text>        
+          <FlatList data={recentlyPlayed} horizontal showsHorizontalScrollIndicator={false} renderItem={({item, index}) => (<RecentlyPlayed item={item} key={index}/>)} />
       </ScrollView>
     </LinearGradient>
   )

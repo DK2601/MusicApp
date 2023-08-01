@@ -58,23 +58,26 @@ const Login = () => {
     <LinearGradient style={{flex: 1}} colors={['#9896F0', '#FBC8D5']}>
       <SafeAreaView>
         <View style = {{height: 80}} />
-          <FontAwesome style={styles.iconSpotify} name="spotify" size={80} color='black' />
-          <Text style={styles.textIntro}>Millions of Songs Free on Spotify</Text>
+          <FontAwesome style={styles.iconSpotify} name="spotify" size={90} color='#4d4dff' />
+          <Text style={styles.textIntro}>A million songs are <Text style={{ color: '#4d4dff'}}>free on Spotify</Text></Text>
           <View style={{height: 80}} />
           <Pressable style={styles.btn1} onPress={Authentication}>
-            <Text style={{fontWeight: 500, textAlign:'center'}}>Sign In with Spotify</Text>
+            <Text style={{fontWeight: 500, textAlign:'center', color:'white', fontFamily: 'tahoma', fontSize: 20 , fontWeight:"bold", }}>Sign In with Spotify</Text>
           </Pressable>
           <Pressable style={styles.btn2}>
-            <Text style={{fontWeight: 500, textAlign:'center', flex: 1}}>Continue with Phone Number</Text>
-            <FontAwesome name='mobile-phone' size={26} color='black' />
+            <Text style={{fontSize:16,marginLeft: 1, fontWeight: 500, textAlign:'left', flex: 1, fontFamily: 'tahoma',fontWeight: 'bold'}}>Continue with Phone Number</Text>
+            {/* <Text style={styles.con}>Continue with Phone Number</Text> */}
+            <FontAwesome style = {styles.icon1} name='mobile-phone' size={28} color='black' />
           </Pressable>
           <Pressable style={styles.btn2}>
-            <Text style={{fontWeight: 500, textAlign:'center', flex: 1}}>Continue with Google Account</Text>
-            <FontAwesome name='google' size={26} color='red' />
+            <Text style={{fontSize:16,marginLeft: 1,fontWeight: 500, textAlign:'left', flex: 1, fontFamily: 'tahoma',fontWeight: 'bold'}}>Continue with Google Account</Text>
+            {/* <Text style={styles.con}>Continue with Google Account</Text> */}
+            <FontAwesome style = {styles.icon} name='google' size={26} color='red' />
           </Pressable>
           <Pressable style={styles.btn2}>
-            <Text style={{fontWeight: 500, textAlign:'center',flex: 1}}>Continue with Facebook Account</Text>      
-            <FontAwesome name='facebook-square' size={26} color='blue' />
+            <Text style={{fontSize:16,marginLeft: 1,fontWeight: 500, textAlign:'left',flex: 1, fontFamily: 'tahoma',fontWeight: 'bold'}}>Continue with Facebook Account</Text> 
+            {/* <Text style={styles.con}>Continue with Facebook Account</Text>            */}
+            <FontAwesome style = {styles.icon} name='facebook-square' size={26} color='blue' />
           </Pressable>
       </SafeAreaView>
     </LinearGradient>
@@ -82,23 +85,31 @@ const Login = () => {
 }
 const styles = StyleSheet.create({
     iconSpotify: {
-      textAlign:'center'
+      marginTop: 30,
+      textAlign:'center',
+      width: 400,
+      heigh: 400,
     },
     textIntro: {
       fontSize:40, 
       fontWeight:"bold", 
       textAlign: 'center', 
-      marginTop: 40,
+      marginTop: 10,
+      fontFamily: 'tahoma',
+      marginBottom: 50,
     },
     btn1: {
-      backgroundColor: '#1DB954', 
+      // backgroundColor: '#1DB954', 
+      backgroundColor: '#4d4dff', 
       padding: 10, 
       marginLeft: 'auto', 
       marginRight: 'auto', 
       width: 300, 
+      heigh: 160,
       borderRadius: 25, 
       alignItems: 'center', 
       justifyContent: 'center',
+      fontSize: 40
       
     },
     btn2: { 
@@ -112,7 +123,19 @@ const styles = StyleSheet.create({
       marginTop: 20,
       flexDirection: 'row',
       alignItems: 'center',
-      borderWidth: 1
-    }
+      borderWidth: 1,
+      fontWeight: 'bold',
+      fontSize: 50
+      
+    },
+    icon:{
+      marginRight: 5,
+
+    },
+    icon1: {
+      marginRight:11,
+
+    },
+
 })
 export default Login

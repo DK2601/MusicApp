@@ -7,6 +7,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from './components/Login';
 import Home from './components/Home';
+import LikedSong from './components/LikedSong';
+import SongInfo from './components/SongInfo';
+import UserProfile from './components/UserProfile';
 
 
 const Tab = createBottomTabNavigator();
@@ -23,16 +26,16 @@ function BottomTab(){
                     tabBarLabelStyle: {color: 'white'},
                     tabBarIcon: ({focused}) => 
                     focused ? (
-                        <Ionicons name="home" size={24} color="black" />
+                        <Ionicons name="home" size={24} color="#4d4d4d" marginTop={10}/>
                     ) : (
-                        <Ionicons name='home' size={24} />
+                        <Ionicons name='home-outline' size={24}  marginTop={10} />
                     )
                 }
             }
             />
             <Tab.Screen 
-                name="Playlist" 
-                component={TrackList} 
+                name="UserProfile" 
+                component={UserProfile} 
                 options = {
                 {
                     tabBarLabel: "Profile",
@@ -40,9 +43,10 @@ function BottomTab(){
                     tabBarLabelStyle: {color: 'white'},
                     tabBarIcon: ({focused}) => 
                     focused ? (
-                        <Ionicons name='search' size={24} color="black" />
+                        <Ionicons name='person' size={24} color="#4d4d4d"  marginTop={10}/>
+
                     ) : (
-                        <Ionicons name="search" size={24}  />
+                        <Ionicons name="person-outline" size={24}  marginTop={10} />
                     )
                 }
             } />
@@ -58,6 +62,9 @@ function Navigation(){
             <Stack.Navigator>
                 <Stack.Screen name='Login' component={Login} options={{headerShown: false}} />
                 <Stack.Screen name='Main' component={BottomTab} options={{headerShown: false}} />
+                <Stack.Screen name='LikedSong' component={LikedSong} options={{headerShown: false}} />
+                <Stack.Screen name='SongInfo' component={SongInfo} options={{headerShown: false}} />
+                <Stack.Screen name='UserProfile' component={UserProfile} options={{headerShown: false}} />
             </Stack.Navigator>
         </NavigationContainer>
     )

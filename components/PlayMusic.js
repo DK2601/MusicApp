@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
+import  LinearGradient  from 'react-native-linear-gradient';
 import { Text, View, StyleSheet, Image, Slider, TouchableOpacity } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
